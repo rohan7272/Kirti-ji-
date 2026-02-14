@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Filmy Valentine 💖</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top, #ff5f7e, #ff9a9e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(14px);
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      max-width: 420px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff2e63;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.12);
+    }
+
+    #noBtn {
+      background: white;
+      color: #ff2e63;
+      position: relative;
+    }
+
+    .heart, .rose {
+      position: absolute;
+      animation: floatUp 7s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) scale(0.7);
+        opacity: 0;
+      }
+      50% { opacity: 1; }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .tap {
+      position: absolute;
+      bottom: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body onclick="startMusic()">
+
+  <!-- Romantic Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_6b0c6bdb69.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="card">
+    <h1>Kirti Ji 💕</h1>
+    <h2>Ek filmy sa pal… 🎬</h2>
+    <p>
+      Agar yeh movie hoti,<br>
+      toh yahin slow motion hota…<br>
+      aur background music bhi 🎶<br><br>
+      <strong>Will you be my Valentine? 💖</strong>
+    </p>
+
+    <button id="yesBtn" onclick="yesClicked()">Yes 💘</button>
+    <button id="noBtn" onclick="noClicked()">No 🙈</button>
+  </div>
+
+  <div class="tap">👆 Tap anywhere for music</div>
+
+  <script>
+    let musicStarted = false;
+    function startMusic() {
+      if (!musicStarted) {
+        document.getElementById("bgMusic").play();
+        musicStarted = true;
+        document.querySelector(".tap").style.display = "none";
+      }
+    }
+
+    // Floating hearts & roses
+    setInterval(() => {
+      const el = document.createElement("div");
+      el.className = Math.random() > 0.5 ? "heart" : "rose";
+      el.innerHTML = el.className === "heart" ? "💖" : "🌹";
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = Math.random() * 20 + 18 + "px";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
+    }, 350);
+
+    const noLines = [
+      "Chaak lomdi",
+      "Picture abhi baaki hai 🎬",
+      "Are you sure? 🥺",
+      "Aese ni krtee 💕",
+      "Your rejection is rejected 😤",
+      "Galti se ho gaya kya? 😌"
+    ];
+
+    let noCount = 0;
+
+    function noClicked() {
+      const noBtn = document.getElementById("noBtn");
+      noBtn.innerText = noLines[noCount % noLines.length];
+      noCount++;
+
+      const x = Math.random() * 240 - 120;
+      const y = Math.random() * 240 - 120;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div class="card">
+          <h1>🥰 I knew it!</h1>
+          <p>
+            Mujhe pata tha tum haa kahogi 💖<br><br>
+            Happy Valentine’s Day ❤️<br><br>
+            <em>And just like that…<br>
+            this became my favourite love story.</em>
+          </p>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
